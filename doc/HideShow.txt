@@ -1,0 +1,96 @@
+*HideShow.txt* Interactive, regex-based folding.
+
+Author: Cory Echols <cory@sixtimesnine.org>
+License: Same terms as Vim (see |license|)
+
+This plugin will only function if 'compatible' is not set.
+
+INTRODUCTION                                         *HideShow*
+
+HideShow makes it easy to apply regex based folding to your vim buffer.  
+For example, a trivial folding of a Java source file might be:
+
+:Show \v(public|private|protected)
+
+:Show and :Hide invocations are cumulative, so the following three 
+invocations of :Show are equivalent to the single command above:
+
+:Show public
+:Show protected
+:Show private
+
+:Show and :Hide invocations work together.  So to naively show all 
+class field declarations:
+
+:Show \v^\s*(public|private|protected).*;$
+
+Now, all 'String' fields can be folded away with:
+
+:Hide String
+
+Once folds are no longer needed:
+
+:ShowAll
+
+HideShow uses a |fold-expr| to create its folds, so any new text
+will be folded according to the commands already issued.
+
+HideShow is meant to be a simple, quick-and-dirty way to create, refine, 
+and clear folding when pre-defined fold methods for a filetype are 
+non-existent or suboptimal.  The folds aren't the pretty, nested, 
+syntax-aware folds that are created in something like eclipse, but they 
+are simple and effective.
+
+COMMANDS                                             *HideShow-commands*
+
+                                                     *HideShow-Hide*
+:Hide [pattern]
+					Fold away lines matching |pattern|
+
+                                                     *HideShow-Hide!*
+:Hide! [pattern]
+					Clear all existing folds, and fold away lines 
+					matching |pattern|
+
+                                                     *HideShow-Show*
+:Show [pattern]
+					Ensure that lines matching |pattern| are not folded 
+					away.  Fold away lines that do not match |pattern|
+
+                                                     *HideShow-Show!*
+:Show! [pattern]
+					Clear all existing folds, and fold away lines that 
+					do not match |pattern|.
+
+                                                     *HideShow-ShowAll*
+:ShowAll
+					Clear all existing folds.  Restore pre-existing fold 
+					settings (with limitations).
+
+NOTES                                                *HideShow-notes*
+
+The first invocation of :Hide or :Show is special in that it will set 
+the default folding policy for lines that do not match the pattern 
+argument.  So, :Show issued first will make all lines that don't match 
+the pattern be folded away, and :Hide issued first will have the 
+opposite effect.  In practice, this means that order matters when 
+invoking commands:
+
+:Show \v(public|private|protected)
+:Hide String
+
+will produce a different set of folds than:
+
+:Hide String
+:Show \v(public|private|protected)
+
+KNOWN ISSUES                                         *HideShow-issues*
+
+Patterns that are meant to match across line breaks will not work.
+
+:ShowAll may not work particularly well for restoring any folds that 
+existed before using :Hide or :Show, such as those defined by 
+|fold-marker| or |fold-syntax| groups.  It may be better to simply 
+re-load the buffer with :e! .  |fold-manual| folds, in particular will 
+be problematic.  If integrating HideShow and |fold-manual| is important, 
+the use of views (|21.5|) may be the best approach.
