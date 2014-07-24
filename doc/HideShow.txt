@@ -8,29 +8,29 @@ This plugin will only function if 'compatible' is not set.
 INTRODUCTION                                         *HideShow*
 
 HideShow makes it easy to apply regex based folding to your vim buffer.  
-For example, a trivial folding of a Java source file might be:
+For example, a trivial folding of a Java source file might be: >
 
-:Show \v(public|private|protected)
+    :Show \v(public|private|protected)
 
 :Show and :Hide invocations are cumulative, so the following three 
-invocations of :Show are equivalent to the single command above:
+invocations of :Show are equivalent to the single command above: >
 
-:Show public
-:Show protected
-:Show private
+    :Show public
+    :Show protected
+    :Show private
 
 :Show and :Hide invocations work together.  So to naively show all 
-class field declarations:
+class field declarations: >
 
-:Show \v^\s*(public|private|protected).*;$
+    :Show \v^\s*(public|private|protected).*;$
 
-Now, all 'String' fields can be folded away with:
+Now, all 'String' fields can be folded away with: >
 
-:Hide String
+    :Hide String
 
-Once folds are no longer needed:
+Once folds are no longer needed: >
 
-:ShowAll
+    :ShowAll
 
 HideShow uses a |fold-expr| to create its folds, so any new text
 will be folded according to the commands already issued.
@@ -64,8 +64,9 @@ COMMANDS                                             *HideShow-commands*
 
                                                      *HideShow-ShowAll*
 :ShowAll
-					Clear all existing folds.  Restore pre-existing fold 
-					settings (with limitations).
+					Clear all existing folds.  Restore 
+					pre-existing fold settings (with 
+					limitations).
 
 NOTES                                                *HideShow-notes*
 
@@ -74,15 +75,15 @@ the default folding policy for lines that do not match the pattern
 argument.  So, :Show issued first will make all lines that don't match 
 the pattern be folded away, and :Hide issued first will have the 
 opposite effect.  In practice, this means that order matters when 
-invoking commands:
+invoking commands: >
 
-:Show \v(public|private|protected)
-:Hide String
+    :Show \v(public|private|protected)
+    :Hide String
 
-will produce a different set of folds than:
+will produce a different set of folds than: >
 
-:Hide String
-:Show \v(public|private|protected)
+    :Hide String
+    :Show \v(public|private|protected)
 
 KNOWN ISSUES                                         *HideShow-issues*
 
