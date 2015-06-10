@@ -29,21 +29,27 @@ endfunction
 function! s:DisableHideShow()
    if(exists("b:localFoldMethod"))
       let &l:foldmethod = b:localFoldMethod
+	  unlet b:localFoldMethod
    endif
    if(exists("b:localFoldExpr"))
       let &l:foldexpr = b:localFoldExpr
+	  unlet b:localFoldExpr
    endif
    if(exists("b:localFoldLevel"))
       let &l:foldlevel = b:localFoldLevel
+	  unlet b:localFoldLevel
    endif
    if(exists("b:localFoldMinLines"))
       let &l:foldminlines = b:localFoldMinLines
+	  unlet b:localFoldMinLines
    endif
    if(exists("b:localFoldnestMax"))
       let &l:foldnestmax = b:localFoldnestMax
+	  unlet b:localFoldnestMax
    endif
    if(exists("b:localFoldEnable"))
       let &l:foldenable = b:localFoldEnable
+	  unlet b:localFoldEnable
    endif
    if(exists("b:defaultAction"))
       unlet b:defaultAction
