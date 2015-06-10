@@ -57,7 +57,7 @@ function! s:DisableHideShow()
    if(exists("b:patterns"))
       unlet b:patterns
    endif
-   silent! normal zE
+   silent! normal zN
 endfunction
 
 function! s:EnableHideShow()
