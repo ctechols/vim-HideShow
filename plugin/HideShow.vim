@@ -27,13 +27,15 @@ function! s:Hide(bang, ...)
 endfunction
 
 function! s:DisableHideShow()
-   if(exists("b:localFoldMethod"))
-      let &l:foldmethod = b:localFoldMethod
-	  unlet b:localFoldMethod
-   endif
+   setlocal foldmethod=manual
+   silent! normal zE
    if(exists("b:localFoldExpr"))
       let &l:foldexpr = b:localFoldExpr
 	  unlet b:localFoldExpr
+   endif
+   if(exists("b:localFoldMethod"))
+      let &l:foldmethod = b:localFoldMethod
+	  unlet b:localFoldMethod
    endif
    if(exists("b:localFoldLevel"))
       let &l:foldlevel = b:localFoldLevel
@@ -57,7 +59,6 @@ function! s:DisableHideShow()
    if(exists("b:patterns"))
       unlet b:patterns
    endif
-   silent! normal zN
 endfunction
 
 function! s:EnableHideShow()
